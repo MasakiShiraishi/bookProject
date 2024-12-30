@@ -1,0 +1,15 @@
+[
+  {
+    "Id": 1,
+    "Title": "Sample Book",
+    "Author": "Sample Author",
+    "PublicationDate": "2024-01-01T00:00:00"
+  },
+
+  {
+    "Id": 2,
+    "Title": "test from backend",
+    "Author": "test",
+    "PublicationDate": "2024-12-30T17:35:23.85Z"
+  }
+]
