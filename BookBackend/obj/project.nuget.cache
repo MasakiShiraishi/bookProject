@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "UY4rxSpBq34=",
+  "dgSpecHash": "0TL/DMvvWpE=",
   "success": true,
-  "projectFilePath": "C:\\source\\CProject\\bookProject\\BookBackend\\BookBackend.csproj",
+  "projectFilePath": "C:\\source\\CProject\\BOOKPROJECT\\BookBackend\\BookBackend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\masak\\.nuget\\packages\\microsoft.aspnetcore.antiforgery\\2.2.0\\microsoft.aspnetcore.antiforgery.2.2.0.nupkg.sha512",
     "C:\\Users\\masak\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",

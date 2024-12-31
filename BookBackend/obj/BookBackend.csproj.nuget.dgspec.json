@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\source\\CProject\\bookProject\\BookBackend\\BookBackend.csproj": {}
+    "C:\\source\\CProject\\BOOKPROJECT\\BookBackend\\BookBackend.csproj": {}
   },
   "projects": {
-    "C:\\source\\CProject\\bookProject\\BookBackend\\BookBackend.csproj": {
+    "C:\\source\\CProject\\BOOKPROJECT\\BookBackend\\BookBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\source\\CProject\\bookProject\\BookBackend\\BookBackend.csproj",
+        "projectUniqueName": "C:\\source\\CProject\\BOOKPROJECT\\BookBackend\\BookBackend.csproj",
         "projectName": "BookBackend",
-        "projectPath": "C:\\source\\CProject\\bookProject\\BookBackend\\BookBackend.csproj",
+        "projectPath": "C:\\source\\CProject\\BOOKPROJECT\\BookBackend\\BookBackend.csproj",
         "packagesPath": "C:\\Users\\masak\\.nuget\\packages\\",
-        "outputPath": "C:\\source\\CProject\\bookProject\\BookBackend\\obj\\",
+        "outputPath": "C:\\source\\CProject\\BOOKPROJECT\\BookBackend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\masak\\AppData\\Roaming\\NuGet\\NuGet.Config"
