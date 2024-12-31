@@ -50,6 +50,17 @@ namespace BookBackend.Controllers
                               var updatedBookResult = _booksRepository.UpdateBook(id, updatedBook);
                               return updatedBookResult;
                     }
+                    [HttpDelete("{id}")]
+                    public ActionResult DeleteBook(int id)
+                    {
+                              var existingBook = _booksRepository.GetBook(id);
+                              if (existingBook == null)
+                              {
+                                        return NotFound();
+                              }
+                              _booksRepository.DeleteBook(id);
+                              return NoContent();
+                    }
 
 
           }
