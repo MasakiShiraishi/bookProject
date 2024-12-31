@@ -12,7 +12,7 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
-          "options": {
+          "options": {            
             "outputPath": "dist/book-frontend",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -97,5 +97,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "629ba83b-bb6d-4499-9259-310d770a5e9a"
   }
 }
