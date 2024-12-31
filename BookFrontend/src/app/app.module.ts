@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { BookListComponent } from './book-list/book-list.component';
 import { AppRoutingModule } from './app.routes';
 import { FormsModule } from '@angular/forms';
+import { EditBookComponent } from './edit-book/edit-book.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { FormsModule } from '@angular/forms';
     RouterModule,
     BookListComponent,
     FormsModule,
+    EditBookComponent
   ],
   providers: [],
   bootstrap: [AppComponent],
