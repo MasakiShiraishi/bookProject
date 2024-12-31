@@ -13,13 +13,20 @@ namespace BookBackend.Repositories
                     public BooksRepository()
                     {
                               var json = File.ReadAllText(_dataFilePath);
-                              _books = JsonConvert.DeserializeObject<Data>(json)?.Books ?? new List<Book>(); 
+                              _books = JsonConvert.DeserializeObject<Data>(json)?.Books ?? new List<Book>();
                     }
 
                     public List<Book> GetAllBooks()
                     {
                               return _books;
                     }
+
+                    public Book GetBook(int id)
+                    {
+                              return _books.FirstOrDefault(b => b.Id == id) ?? throw new InvalidOperationException("Book not found");
+                    }
+
+                    
 
                     public Book AddBook(Book newBook)
                     {
@@ -29,13 +36,24 @@ namespace BookBackend.Repositories
                               return newBook;
                     }
 
+                    public Book UpdateBook(int id, Book updatedBook)
+                    {
+                              var book = _books.FirstOrDefault(b => b.Id == id) ?? throw new InvalidOperationException("Book not found");
+                              book.Title = updatedBook.Title;
+                              book.Author = updatedBook.Author;
+                              book.PublicationDate = updatedBook.PublicationDate;
+                              SaveChanges();
+                              return book;
+                    }
+
+
                     private void SaveChanges()
                     {
-                              var data = new Data { Books = _books }; 
-                              var json = JsonConvert.SerializeObject(data, Formatting.Indented); 
+                              var data = new Data { Books = _books };
+                              var json = JsonConvert.SerializeObject(data, Formatting.Indented);
                               File.WriteAllText(_dataFilePath, json);
 
                     }
           }
-          
+
 }

@@ -5,6 +5,7 @@
       <strong>{{ book.title }}</strong> by {{ book.author }} ({{
         book.publicationDate 
       }})
+      <button (click)="editBook(book.id)">edit</button>
     </li>
   </ul>
 </div>
