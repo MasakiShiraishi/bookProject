@@ -17,6 +17,12 @@
       "Title": "test again",
       "Author": "string",
       "PublicationDate": "2024-12-31T07:30:39.486Z"
+    },
+    {
+      "Id": 4,
+      "Title": "test from front",
+      "Author": "test",
+      "PublicationDate": "2024-12-31T00:00:00"
     }
   ]
 }
