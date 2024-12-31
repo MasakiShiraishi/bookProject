@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Mvc; 
-using System.Collections.Generic; 
-using BookBackend.Models; 
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using BookBackend.Models;
 using BookBackend.Repositories;
 
 namespace BookBackend.Controllers
@@ -27,6 +27,28 @@ namespace BookBackend.Controllers
                     {
                               var addedBook = _booksRepository.AddBook(newBook);
                               return addedBook;
+                    }
+
+                    [HttpGet("{id}")]
+                    public ActionResult<Book> GetBook(int id)
+                    {
+                              var book = _booksRepository.GetBook(id);
+                              if (book == null)
+                              {
+                                        return NotFound();
+                              }
+                              return book;
+                    }
+                    [HttpPut("{id}")]
+                    public ActionResult<Book> PutBook(int id, Book updatedBook)
+                    {
+                              var existingBook = _booksRepository.GetBook(id);
+                              if (existingBook == null)
+                              {
+                                        return NotFound();
+                              }
+                              var updatedBookResult = _booksRepository.UpdateBook(id, updatedBook);
+                              return updatedBookResult;
                     }
 
 
