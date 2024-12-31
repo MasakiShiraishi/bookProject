@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BookService } from '../services/book.service';
 import { Book } from '../models/book';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-list',
@@ -12,7 +13,7 @@ import { CommonModule } from '@angular/common';
 })
 export class BookListComponent implements OnInit {
   books: Book[] = [];
-  constructor(private bookService: BookService) {}
+  constructor(private bookService: BookService, private router: Router) {}
 
   ngOnInit(): void {
     this.bookService.getBooks().subscribe((books) => {
@@ -29,5 +30,9 @@ export class BookListComponent implements OnInit {
     const month = ('0' + (date.getMonth() + 1)).slice(-2);
     const day = ('0' + date.getDate()).slice(-2);
     return `${year}-${month}-${day}`;
+  }
+
+  editBook(id: number): void {
+    this.router.navigate(['/edit-book/',id]);
   }
 }
