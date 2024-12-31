@@ -46,6 +46,12 @@ namespace BookBackend.Repositories
                               return book;
                     }
 
+                    public void DeleteBook(int id)
+                    {
+                              var book = _books.FirstOrDefault(b => b.Id == id) ?? throw new InvalidOperationException("Book not found");
+                              _books.Remove(book);
+                              SaveChanges();
+                    }
 
                     private void SaveChanges()
                     {

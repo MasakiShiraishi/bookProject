@@ -35,4 +35,10 @@ export class BookListComponent implements OnInit {
   editBook(id: number): void {
     this.router.navigate(['/edit-book/',id]);
   }
+
+  deleteBook(id: number): void {
+    this.bookService.deleteBook(id).subscribe(() => {
+      this.books = this.books.filter(book => book.id !== id);
+    });
+  }
 }
