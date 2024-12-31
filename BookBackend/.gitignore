@@ -1,0 +1,24 @@
+# .NET
+*.dll
+*.exe
+*.obj
+*.log
+*.vspscc
+*.vssscc
+.vscode/
+.vs/
+TestResults/
+[Bb]in/
+[Oo]bj/
+!.gitkeep
+
+# Rider
+.idea/
+*.sln.iml
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
