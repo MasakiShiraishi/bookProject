@@ -2,25 +2,25 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { RouterModule} from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { BookListComponent } from './book-list/book-list.component';
 import { AppRoutingModule } from './app.routes';
-// import { LoggingInterceptor } from './logging.intercepter';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
-  declarations: [
-    BookListComponent
-  ],
+  declarations: [],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     CommonModule,
     RouterModule,
-    BookListComponent
+    BookListComponent,
+    FormsModule,
   ],
-  providers: [], 
-  bootstrap: [AppComponent]
+  providers: [],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

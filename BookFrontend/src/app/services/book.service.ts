@@ -15,7 +15,7 @@ export class BookService {
     return this.http.get<Book[]>(this.apiUrl);
   }
 
-  addBook(book: Book): Observable<Book> {
+  createBook(book: Omit<Book, 'id'>): Observable<Book> {
     return this.http.post<Book>(this.apiUrl, book);
   }
 }
