@@ -1,0 +1,17 @@
+<h2>Edit Book</h2>
+<form *ngIf="editingBook.id" (ngSubmit)="updateBook()">
+  <div>
+    <label for="title">Title:</label>
+    <input id="title" [(ngModel)]="editingBook.title" name="title" required>
+  </div>
+  <div>
+    <label for="author">Author:</label>
+    <input id="author" [(ngModel)]="editingBook.author" name="author" required>
+  </div>
+  <div>
+    <label for="publicationDate">Publication Date:</label>
+    <input id="publicationDate" [(ngModel)]="editingBook.publicationDate" name="publicationDate" type="date" required>
+  </div>
+  <button type="submit">Update Book</button>
+</form>
+<button (click)="navigateToBookList()">Back to Book List</button>
