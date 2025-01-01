@@ -3,11 +3,17 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { BookListComponent } from './book-list/book-list.component';
 import { CommonModule } from '@angular/common';
+import { HeaderComponent } from "./header/header.component";
+import { FooterComponent } from './footer/footer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HttpClientModule, RouterLink, BookListComponent],
+  imports: [
+    CommonModule, RouterOutlet, HttpClientModule,
+     RouterLink, BookListComponent, HeaderComponent
+     , FooterComponent
+    ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
