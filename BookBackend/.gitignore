@@ -11,7 +11,7 @@ TestResults/
 [Bb]in/
 [Oo]bj/
 !.gitkeep
-
+.env
 # Do not ignore data.json 
 !BookBackend/data.json
 # Rider
