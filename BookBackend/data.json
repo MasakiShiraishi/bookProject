@@ -1,4 +1,10 @@
-{
+{ 
+  "Users": [
+    {
+      "Username": "tester",
+      "Password": "password"
+    }
+  ],
   "Books": [
     {
       "Id": 1,

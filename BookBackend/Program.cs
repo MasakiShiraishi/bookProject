@@ -22,7 +22,8 @@ builder.Services.AddCors(options =>
 });
 // Register the BooksRepository as a service
 builder.Services.AddSingleton<BooksRepository>();
-
+builder.Services.AddScoped<IAuthRepository, AuthRepository>(); 
+builder.Services.AddControllers();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
