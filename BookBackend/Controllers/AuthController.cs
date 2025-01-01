@@ -9,10 +9,12 @@ using BookBackend.Models;
 public class AuthController : ControllerBase
 {
     private readonly IAuthRepository _authRepository;
+    private readonly JwtTokenGenerator _tokenGenerator;
 
-    public AuthController(IAuthRepository authRepository)
+    public AuthController(IAuthRepository authRepository, JwtTokenGenerator tokenGenerator)
     {
         _authRepository = authRepository;
+        _tokenGenerator = tokenGenerator;
     }
 
     [HttpPost("login")]
@@ -28,7 +30,8 @@ public class AuthController : ControllerBase
             var existingUser = _authRepository.GetUser(user.Username, user.Password);
             if (existingUser != null)
             {
-                return Ok("Login successful");
+                var token = _tokenGenerator.GenerateToken(user.Username);
+                return Ok(new { Token = token });
             }
             return Unauthorized("Invalid username or password");
         }
