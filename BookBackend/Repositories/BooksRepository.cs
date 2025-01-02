@@ -8,14 +8,14 @@ namespace BookBackend.Repositories
 {
           public class BooksRepository
           {
-                    private readonly string _dataFilePath = "data.json";
+                    private readonly JsonFileRepository _jsonFileRepository;
                     private List<Book> _books;
-                    public BooksRepository()
+                    public BooksRepository(JsonFileRepository jsonFileRepository)
                     {
-                              var json = File.ReadAllText(_dataFilePath);
-                              _books = JsonConvert.DeserializeObject<Data>(json)?.Books ?? new List<Book>();
+                              _jsonFileRepository = jsonFileRepository;
+                              _books = Task.Run(() => _jsonFileRepository.LoadDataAsync()).Result.Books ?? new List<Book>();
                     }
-
+                                                                                
                     public List<Book> GetAllBooks()
                     {
                               return _books;
@@ -24,40 +24,37 @@ namespace BookBackend.Repositories
                     public Book GetBook(int id)
                     {
                               return _books.FirstOrDefault(b => b.Id == id) ?? throw new InvalidOperationException("Book not found");
-                    }
+                    }                    
 
-                    
-
-                    public Book AddBook(Book newBook)
+                    public async Task<Book> AddBookAsync(Book newBook)
                     {
                               newBook.Id = _books.Any() ? _books.Max(b => b.Id) + 1 : 1;
                               _books.Add(newBook);
-                              SaveChanges();
+                              await SaveChangesAsync();
                               return newBook;
                     }
 
-                    public Book UpdateBook(int id, Book updatedBook)
+                    public async Task<Book> UpdateBookAsync(int id, Book updatedBook)
                     {
                               var book = _books.FirstOrDefault(b => b.Id == id) ?? throw new InvalidOperationException("Book not found");
                               book.Title = updatedBook.Title;
                               book.Author = updatedBook.Author;
                               book.PublicationDate = updatedBook.PublicationDate;
-                              SaveChanges();
+                               await SaveChangesAsync();
                               return book;
                     }
 
-                    public void DeleteBook(int id)
+                    public async Task DeleteBookAsync(int id)
                     {
                               var book = _books.FirstOrDefault(b => b.Id == id) ?? throw new InvalidOperationException("Book not found");
                               _books.Remove(book);
-                              SaveChanges();
+                              await SaveChangesAsync();
                     }
 
-                    private void SaveChanges()
+                    private async Task SaveChangesAsync()
                     {
                               var data = new Data { Books = _books };
-                              var json = JsonConvert.SerializeObject(data, Formatting.Indented);
-                              File.WriteAllText(_dataFilePath, json);
+                              await _jsonFileRepository.SaveDataAsync(data);
 
                     }
           }

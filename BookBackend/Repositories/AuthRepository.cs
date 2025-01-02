@@ -4,47 +4,27 @@ using System.Linq;
 using Newtonsoft.Json;
 using BookBackend.Models;
 
-public interface IAuthRepository
+public class AuthRepository
 {
-    User GetUser(string username, string password);
-}
 
-public class AuthRepository : IAuthRepository
-{
+    private readonly JsonFileRepository _jsonFileRepository;
     private List<User> _users;
 
-    public AuthRepository()
+    public AuthRepository(JsonFileRepository jsonFileRepository)
     {
-        try
-        {
-            LoadUsersFromJson();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"An error occurred while loading users: {ex.Message}");
-            _users = new List<User>();
-        }
-    }
-
-    private void LoadUsersFromJson()
-    {
-        var filePath = Path.Combine(AppContext.BaseDirectory, "data.json");
-        var json = File.ReadAllText(filePath);
-        var jsonObject = JsonConvert.DeserializeObject<dynamic>(json);
-        _users = JsonConvert.DeserializeObject<List<User>>(jsonObject.Users.ToString());
+        _jsonFileRepository = jsonFileRepository;
+        var data = Task.Run(() => _jsonFileRepository.LoadDataAsync()).Result;
+        _users = data.Users ?? new List<User>();
     }
 
     public User GetUser(string username, string password)
     {
-        try
-        {
-            var user = _users.FirstOrDefault(u => u.Username == username && u.Password == password);
-            return user; 
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"An error occurred while retrieving user: {ex.Message}");
-            return null;
-        }
+        return _users.FirstOrDefault(u => u.Username == username && u.Password == password);
+    }
+
+    public List<User> GetAllUsers()
+    {
+        return _users;
     }
 }
+

@@ -11,22 +11,22 @@ namespace BookBackend.Controllers
           {
                     private readonly BooksRepository _booksRepository;
 
-                    public BooksController()
+                    public BooksController(BooksRepository booksRepository)
                     {
-                              _booksRepository = new BooksRepository();
-                    }
+                              _booksRepository = booksRepository;
+                    }                 
 
                     [HttpGet]
-                    public ActionResult<List<Book>> GetBooks()
+                    public ActionResult<IEnumerable<Book>> GetBooks()
                     {
                               return _booksRepository.GetAllBooks();
                     }
 
                     [HttpPost]
-                    public ActionResult<Book> AddBook(Book newBook)
+                    public async Task<ActionResult<Book>> AddBook(Book newBook)
                     {
-                              var addedBook = _booksRepository.AddBook(newBook);
-                              return addedBook;
+                              var addedBook = await _booksRepository.AddBookAsync(newBook);
+                              return CreatedAtAction(nameof(GetBook), new { id = addedBook.Id }, addedBook);
                     }
 
                     [HttpGet("{id}")]
@@ -40,25 +40,19 @@ namespace BookBackend.Controllers
                               return book;
                     }
                     [HttpPut("{id}")]
-                    public ActionResult<Book> PutBook(int id, Book updatedBook)
+                    public async Task<ActionResult<Book>> PutBook(int id, Book updatedBook)
                     {
-                              var existingBook = _booksRepository.GetBook(id);
+                              var existingBook = await _booksRepository.UpdateBookAsync(id, updatedBook);
                               if (existingBook == null)
                               {
                                         return NotFound();
-                              }
-                              var updatedBookResult = _booksRepository.UpdateBook(id, updatedBook);
-                              return updatedBookResult;
+                              }                              
+                              return existingBook;
                     }
                     [HttpDelete("{id}")]
-                    public ActionResult DeleteBook(int id)
+                    public async Task<ActionResult> DeleteBook(int id)
                     {
-                              var existingBook = _booksRepository.GetBook(id);
-                              if (existingBook == null)
-                              {
-                                        return NotFound();
-                              }
-                              _booksRepository.DeleteBook(id);
+                              await _booksRepository.DeleteBookAsync(id);
                               return NoContent();
                     }
 

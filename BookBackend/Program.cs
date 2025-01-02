@@ -64,8 +64,9 @@ builder.Services.AddAuthentication(Options =>
 });
 
 // Register the BooksRepository as a service
-builder.Services.AddSingleton<BooksRepository>();
-builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddSingleton<JsonFileRepository>(sp => new JsonFileRepository("Data.json"));
+builder.Services.AddScoped<BooksRepository>();
+builder.Services.AddScoped<AuthRepository>();
 builder.Services.AddTransient<JwtTokenGenerator>();
 
 
