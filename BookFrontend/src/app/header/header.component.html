@@ -1,14 +1,11 @@
 <header>
   <nav>
     <ul>
-      <li><a routerLink="/">Home</a></li>
-      <li><a routerLink="/add-book">Add Todo</a></li>     
-      <li >
-        <a routerLink="/login">Login</a>
+      <li><a routerLink="/book-list">Home</a></li>
+      <li><a routerLink="/add-book">Add Todo</a></li>
+      <li *ngIf="authService.checkAuthentication()">
+        <a (click)="logout()">Logout</a>
       </li>
-      
-      
-      
     </ul>
   </nav>
 </header>

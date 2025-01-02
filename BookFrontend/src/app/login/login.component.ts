@@ -17,18 +17,23 @@ export class LoginComponent {
     username: '', 
     password: '' 
   };
+  errorMessage: string = '';
 
   constructor(private authservice: AuthService, private router: Router) {}
 
   login(): void {
     this.authservice.login(this.user).subscribe({
       next: (response: any) => {
-        localStorage.setItem('token', response.token);
+        if(typeof window !== 'undefined') {
+          localStorage.setItem('token', response.token);
+        }
         console.log('Login successful', response);
+        this.router.navigate(['/book-list']);
       },
       error: (error) => {
-        console.log(error);
-      },
-    });
+        console.error('Login failed', error);
+        this.errorMessage = "Invaild username or password";
+      }
+  });
   }
 }
