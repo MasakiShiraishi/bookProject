@@ -51,6 +51,17 @@ public class JsonFileRepository
             }
         }
 
+        if (existingData.Quotations != null)
+        {
+            newData.Quotations ??= new List<Quotation>();
+            foreach (var quotation in existingData.Quotations)
+            {
+                if (!newData.Quotations.Any(q => q.Id == quotation.Id))
+                {
+                    newData.Quotations.Add(quotation);
+                }
+            }
+        }
 
         var json = JsonSerializer.Serialize(newData, new JsonSerializerOptions { WriteIndented = true });
         await File.WriteAllTextAsync(_filePath, json);
