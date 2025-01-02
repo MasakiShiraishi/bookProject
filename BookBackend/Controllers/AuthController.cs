@@ -8,10 +8,10 @@ using BookBackend.Models;
 [ApiController]
 public class AuthController : ControllerBase
 {
-    private readonly IAuthRepository _authRepository;
+    private readonly AuthRepository _authRepository;
     private readonly JwtTokenGenerator _tokenGenerator;
 
-    public AuthController(IAuthRepository authRepository, JwtTokenGenerator tokenGenerator)
+    public AuthController(AuthRepository authRepository, JwtTokenGenerator tokenGenerator)
     {
         _authRepository = authRepository;
         _tokenGenerator = tokenGenerator;
@@ -40,5 +40,11 @@ public class AuthController : ControllerBase
             Console.WriteLine($"An error occurred: {ex.Message}");
             return StatusCode(500, "Internal server error");
         }
+    }
+
+    [HttpGet("users")]
+    public ActionResult<List<User>> GetAllUsers()
+    {
+        return _authRepository.GetAllUsers();
     }
 }
