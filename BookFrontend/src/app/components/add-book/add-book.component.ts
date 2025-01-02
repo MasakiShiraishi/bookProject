@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { Book } from '../models/book';
-import { BookService } from '../services/book.service';
+import { Book } from '../../models/book';
+import { BookService } from '../../services/book.service';
 
 @Component({
   selector: 'app-add-book',
