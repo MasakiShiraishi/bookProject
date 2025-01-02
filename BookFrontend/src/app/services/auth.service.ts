@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +12,15 @@ export class AuthService {
   private apiURL = 'http://localhost:5117/api/Auth';
   private isAuthenticated = false;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   login(user: User): Observable<any> {
     return this.http.post<any>(`${this.apiURL}/login`, user).pipe(
-      tap(response => {
+      tap((response) => {
         if (response.token) {
           this.isAuthenticated = true;
           this.saveToken(response.token);
@@ -26,20 +31,30 @@ export class AuthService {
 
   logout(): void {
     this.isAuthenticated = false;
-    localStorage.removeItem('token');
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('token');
+    }
     this.router.navigate(['/login']);
   }
 
   checkAuthentication(): boolean {
-    const token = localStorage.getItem('token');
-    return !!token;
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('token');
+      return !!token;
+    }
+    return false;
   }
 
   saveToken(token: string): void {
-    localStorage.setItem('token', token);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('token', token);
+    }
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem('token');
+    }
+    return null;
   }
 }
