@@ -1,11 +1,11 @@
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BookListComponent } from './book-list/book-list.component';
-import { AddBookComponent } from './add-book/add-book.component';
-import { EditBookComponent } from './edit-book/edit-book.component';
-import { LoginComponent } from './login/login.component';
-import { AuthGuard } from './auth.guard';
+import { BookListComponent } from './component/book-list/book-list.component';
+import { AddBookComponent } from './component/add-book/add-book.component';
+import { EditBookComponent } from './component/edit-book/edit-book.component';
+import { LoginComponent } from './component/login/login.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: '',  redirectTo: '/login', pathMatch: 'full' },

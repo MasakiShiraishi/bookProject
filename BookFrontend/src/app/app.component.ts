@@ -1,10 +1,10 @@
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { BookListComponent } from './book-list/book-list.component';
+import { BookListComponent } from './component/book-list/book-list.component';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from "./header/header.component";
-import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from "./component/header/header.component";
+import { FooterComponent } from './component/footer/footer.component';
 
 @Component({
   selector: 'app-root',

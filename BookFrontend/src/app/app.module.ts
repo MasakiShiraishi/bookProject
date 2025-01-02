@@ -4,13 +4,13 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import { BookListComponent } from './book-list/book-list.component';
+import { BookListComponent } from './component/book-list/book-list.component';
 import { AppRoutingModule } from './app.routes';
 import { FormsModule } from '@angular/forms';
-import { EditBookComponent } from './edit-book/edit-book.component';
-import { LoginComponent } from './login/login.component';
+import { EditBookComponent } from './component/edit-book/edit-book.component';
+import { LoginComponent } from './component/login/login.component';
 import { AuthService } from './services/auth.service';
-import { TokenInterceptor } from './auth.interceptor';
+import { TokenInterceptor } from './interceptors/auth.interceptor';
 
 
 
