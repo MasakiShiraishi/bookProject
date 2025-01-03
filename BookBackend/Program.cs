@@ -17,11 +17,7 @@ Env.Load();
 var jwtKey = Environment.GetEnvironmentVariable("JWT_KEY") ?? throw new ArgumentNullException("JWT_KEY");
 var jwtIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? throw new ArgumentNullException("JWT_ISSUER");
 var jwtAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? throw new ArgumentNullException("JWT_AUDIENCE");
-
-Console.WriteLine($"JWT_KEY: {jwtKey}");
-Console.WriteLine($"JWT_ISSUER: {jwtIssuer}");
-Console.WriteLine($"JWT_AUDIENCE: {jwtAudience}");
-
+ 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
