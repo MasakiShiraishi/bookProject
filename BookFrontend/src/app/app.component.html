@@ -16,5 +16,8 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
 <app-header/>
+<div *ngIf="sessionExpired" class="session-expired-message"> 
+          Your session has expired. Please log in again.
+ </div>
 <router-outlet />
 <app-footer/>

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
@@ -11,6 +11,9 @@ import { isPlatformBrowser } from '@angular/common';
 export class AuthService {
   private apiURL = 'http://localhost:5117/api/Auth';
   private isAuthenticated = false;
+  sessionExpiredSubject = new BehaviorSubject<boolean>(false);
+
+  sessionExpired$ = this.sessionExpiredSubject.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -24,6 +27,8 @@ export class AuthService {
         if (response.token) {
           this.isAuthenticated = true;
           this.saveToken(response.token);
+          this.setTokenTimeout(15*60*1000);
+          this.sessionExpiredSubject.next(false);
         }
       })
     );
@@ -34,6 +39,7 @@ export class AuthService {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('token');
     }
+    this.sessionExpiredSubject.next(true);
     this.router.navigate(['/login']);
   }
 
@@ -49,12 +55,19 @@ export class AuthService {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('token', token);
     }
-  }
+    }
 
   getToken(): string | null {
     if (isPlatformBrowser(this.platformId)) {
       return localStorage.getItem('token');
     }
     return null;
+  }
+
+  private setTokenTimeout(milliseconds: number): void {
+    setTimeout(() => {
+      this.logout();
+
+    }, milliseconds);
   }
 }
