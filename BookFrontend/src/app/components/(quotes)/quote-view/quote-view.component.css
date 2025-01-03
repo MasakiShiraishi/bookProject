@@ -1,0 +1,44 @@
+.container {
+  max-width: 600px;
+}
+.ml-md-auto {
+  margin-left: auto; 
+}
+.quote-text {
+  font-size: 0.9rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 80%;
+  }
+  .quote-text
+  {
+    font-size: 1.1rem;
+  }
+  .btn-sm {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.d-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
+}

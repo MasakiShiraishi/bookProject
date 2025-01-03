@@ -1,17 +1,45 @@
-<h2>Add Book</h2>
-<form (ngSubmit)="addBook()">
-  <div>
-    <label for="title">Title:</label>
-    <input id="title" [(ngModel)]="newBook.title" name="title" required>
-  </div>
-  <div>
-    <label for="author">Author:</label>
-    <input id="author" [(ngModel)]="newBook.author" name="author" required>
-  </div>
-  <div>
-    <label for="publicationDate">Publication Date:</label>
-    <input id="publicationDate" [(ngModel)]="newBook.publicationDate" name="publicationDate" type="date" required>
-  </div>
-  <button type="submit">Add Book</button>
-</form>
-<button (click)="navigateToBookList()">Back to Book List</button>
+<div class="container mt-5">
+  <h2 class="mb-4 text-center">Lägg till bok</h2>
+  <form (ngSubmit)="addBook()" class="form-container mx-auto">
+    <div class="form-group">
+      <label for="title">Titel:</label>
+      <input
+        id="title"
+        [(ngModel)]="newBook.title"
+        name="title"
+        class="form-control"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="author">Författare:</label>
+      <input
+        id="author"
+        [(ngModel)]="newBook.author"
+        name="author"
+        class="form-control"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="publicationDate">Publiceringsdatum:</label>
+      <input
+        id="publicationDate"
+        [(ngModel)]="newBook.publicationDate"
+        name="publicationDate"
+        type="date"
+        class="form-control"
+        required
+      />
+    </div>
+    <button type="submit" class="btn btn-primary btn-block btn-block-custom">
+      Lägg till ny bok
+    </button>
+  </form>
+  <button
+    (click)="navigateToBookList()"
+    class="btn btn-secondary btn-block btn-block-custom mt-3"
+  >
+    Tillbaka till boklistan
+  </button>
+</div>
