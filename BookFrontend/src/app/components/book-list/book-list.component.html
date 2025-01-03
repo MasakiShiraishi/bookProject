@@ -1,12 +1,29 @@
-<div>
-  <h2>Book List</h2>
-  <ul>
-    <li *ngFor="let book of books">
-      <strong>{{ book.title }}</strong> by {{ book.author }} ({{
-        book.publicationDate 
-      }})
-      <button (click)="editBook(book.id)">edit</button>
-      <button (click)="deleteBook(book.id)">delete</button>
+<div class="container mt-4">
+  <h2 class="mb-4">Boklista</h2>
+  <ul class="list-group">
+    <li *ngFor="let book of books" class="list-group-item">
+      <div
+        class="d-flex flex-column flex-md-row justify-content-between align-items-md-center"
+      >
+        <div class="book-info w-100">
+          <strong>{{ book.title }}</strong>
+          <span class="d-block">av {{ book.author }}</span>
+          <span class="d-block">({{ book.publicationDate }})</span>
+        </div>
+        <div
+          class="button-group mt-2 mt-md-0 d-flex d-md-block justify-content-between"
+        >
+          <button
+            class="btn btn-primary btn-sm mr-2"
+            (click)="editBook(book.id)"
+          >
+            <i class="fas fa-edit"></i> Redigera
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="deleteBook(book.id)">
+            <i class="fas fa-trash-alt"></i> Radera
+          </button>
+        </div>
+      </div>
     </li>
   </ul>
 </div>

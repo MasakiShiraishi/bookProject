@@ -8,11 +8,20 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [RouterModule, CommonModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
   constructor(public authService: AuthService) {}
+
   logout(): void {
     this.authService.logout();
+    this.closeMenu();
+  }
+
+  closeMenu(): void {
+    const navbarNav = document.getElementById('navbarNav');
+    if (navbarNav && navbarNav.classList.contains('show')) {
+      navbarNav.classList.remove('show');
+    }
   }
 }

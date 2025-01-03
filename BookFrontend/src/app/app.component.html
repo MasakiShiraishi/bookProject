@@ -16,11 +16,15 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
 <app-header />
-<div *ngIf="sessionExpired" class="session-expired-message">
-  Your session has expired. Please log in again.
-</div>
 <div *ngIf="manualLogout" class="manual-logout-message">
-  You have been logged out.
+  Du har blivit utloggad.
 </div>
-<router-outlet />
-<app-footer />
+<main class="flex-fill">
+  <router-outlet />
+  <div *ngIf="sessionExpired" class="session-expired-message">
+    Din session har löpt ut. Logga in igen.
+  </div>
+</main>
+<footer class="footer bg-light position-relative" *ngIf="!isLoginPage">
+  <p class="p-3 mb-2 text-center w-100">&copy; 2025 Min Application</p>
+</footer>

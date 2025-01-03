@@ -15,7 +15,11 @@ import { CommonModule } from '@angular/common';
 })
 export class EditBookComponent implements OnInit {
   editingBook: Partial<Book> = {};
-  constructor(private bookService: BookService, private route: ActivatedRoute,private router: Router) {}
+  constructor(
+    private bookService: BookService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -27,12 +31,12 @@ export class EditBookComponent implements OnInit {
   }
   updateBook(): void {
     if (this.editingBook) {
-      this.bookService
-        .updateBook(this.editingBook as Book)
-        .subscribe(() => {
-          this.router.navigate(['/']);
-        });
+      this.bookService.updateBook(this.editingBook as Book).subscribe(() => {
+        this.router.navigate(['/book-list']);
+      });
     }
   }
-  navigateToBookList(): void { this.router.navigate(['/']); }
+  navigateToBookList(): void {
+    this.router.navigate(['/book-list']);
+  }
 }

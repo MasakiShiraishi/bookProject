@@ -1,0 +1,61 @@
+.navbar {
+  z-index: 1; /* メニューバーが最上位に表示されるように高いz-indexを設定 */
+  position: sticky; /* スクロールに合わせて固定 */
+  top: 0; /* 上部に固定 */
+  width: 100%; /* 幅を100%に設定 */
+}
+
+.navbar-nav {
+  width: 100%;
+  justify-content: flex-end;
+  position: relative;
+  z-index: 1;
+}
+
+.nav-item {
+  margin-left: 15px;
+}
+
+/* Stack items vertically in mobile view */
+@media (max-width: 767.98px) {
+  .navbar {
+    display: block; /* モバイル表示時にメニューバーを表示 */
+  }
+  .navbar-collapse {
+    position: fixed;
+    top: 50;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.9); /* 背景を半透明にする */
+    z-index: 1;
+    overflow-y: auto; /* 縦スクロールを有効にする */
+  }
+  .navbar-nav {
+    flex-direction: column;
+    align-items: center;
+  }
+  .navbar-nav .nav-item {
+    margin: 10px 0; /* 各アイテムの間にマージンを追加 */
+    font-size: 1.5rem;
+  }
+  .navbar-toggler {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1050;
+  }
+}
+
+@media (min-width: 768px) {
+  .navbar-toggler {
+    display: none; /* デスクトップ表示時にトグルボタンを非表示にする */
+  }
+  .navbar-collapse {
+    display: flex !important;
+    flex-basis: auto;
+  }
+  .navbar-nav {
+    flex-direction: row; /* デスクトップ表示時にリンクを横並びにする */
+  }
+}

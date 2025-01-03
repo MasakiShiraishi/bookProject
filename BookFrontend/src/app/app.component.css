@@ -1,11 +1,24 @@
 .session-expired-message {
-          color: red;
-          text-align: center;
-          margin: 20px;
-          font-weight: bold;
-          background-color: #ffe6e6;
-          padding: 10px;
-          border: 1px solid red;
-          border-radius: 5px;
-        }
-        
+  color: red;
+  text-align: center;
+  margin: 20px;
+  font-weight: bold;
+  background-color: #ffe6e6;
+  padding: 10px;
+  border: 1px solid red;
+  border-radius: 5px;
+}
+.manual-logout-message {
+  position: fixed;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 1rem 2rem;
+  border: 1px solid #f5c6cb;
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  z-index: 1000;
+}
