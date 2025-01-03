@@ -29,7 +29,7 @@ export class AuthService {
         if (response.token) {
           this.isAuthenticated = true;
           this.saveToken(response.token);
-          this.setTokenTimeout(1*60*1000);
+          this.setTokenTimeout(15*60*1000);
           this.resetFlags();
         }
       })
