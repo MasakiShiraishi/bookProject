@@ -3,6 +3,7 @@
     <ul>
       <li><a routerLink="/book-list">Home</a></li>
       <li><a routerLink="/add-book">Add Todo</a></li>
+      <li><a routerLink="/quote-view">Quotes</a></li>
       <li *ngIf="authService.checkAuthentication()">
         <a (click)="logout()">Logout</a>
       </li>

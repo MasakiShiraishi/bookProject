@@ -1,0 +1,13 @@
+<h2>Add Quote</h2>
+<form (ngSubmit)="addQuote()">
+  <div>
+    <label for="text">Quote:</label>
+    <input id="text" [(ngModel)]="newQuote.text" name="text" required>
+  </div>
+  <div>
+    <label for="author">Author:</label>
+    <input id="author" [(ngModel)]="newQuote.author" name="author" required>
+  </div>
+  <button type="submit">Add Quote</button>
+</form>
+<button (click)="navigateToQuoteList()">Back to Quote List</button>

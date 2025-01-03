@@ -1,0 +1,10 @@
+<div>
+  <h2>Quote List</h2>
+  <ul>
+    <li *ngFor="let quote of displayQuotes">
+      <strong>"{{ quote.text }}"</strong> by {{ quote.author }}      
+      <button (click)="deleteQuote(quote.id)">delete</button>
+    </li>
+  </ul>
+  <button (click)="navigateToAddQuote()">Add Quote</button>
+</div>

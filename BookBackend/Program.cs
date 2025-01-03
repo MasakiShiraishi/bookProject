@@ -67,6 +67,7 @@ builder.Services.AddAuthentication(Options =>
 builder.Services.AddSingleton<JsonFileRepository>(sp => new JsonFileRepository("Data.json"));
 builder.Services.AddScoped<BooksRepository>();
 builder.Services.AddScoped<AuthRepository>();
+builder.Services.AddScoped<QuotationRepository>();
 builder.Services.AddTransient<JwtTokenGenerator>();
 
 
