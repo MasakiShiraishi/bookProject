@@ -15,9 +15,12 @@
 <!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
-<app-header/>
-<div *ngIf="sessionExpired" class="session-expired-message"> 
-          Your session has expired. Please log in again.
- </div>
+<app-header />
+<div *ngIf="sessionExpired" class="session-expired-message">
+  Your session has expired. Please log in again.
+</div>
+<div *ngIf="manualLogout" class="manual-logout-message">
+  You have been logged out.
+</div>
 <router-outlet />
-<app-footer/>
+<app-footer />

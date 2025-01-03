@@ -25,11 +25,16 @@ import { AuthService } from './services/auth.service';
 export class AppComponent implements OnInit {
   title = 'BookFrontend';
   sessionExpired: boolean = false;
+  manualLogout: boolean = false;
+  
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.authService.sessionExpired$.subscribe((expired) => {
       this.sessionExpired = expired;
+    });
+    this.authService.manualLogout$.subscribe((logout) => {
+      this.manualLogout = logout;
     });
   }
 }
