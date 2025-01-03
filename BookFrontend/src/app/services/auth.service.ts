@@ -11,9 +11,11 @@ import { isPlatformBrowser } from '@angular/common';
 export class AuthService {
   private apiURL = 'http://localhost:5117/api/Auth';
   private isAuthenticated = false;
-  sessionExpiredSubject = new BehaviorSubject<boolean>(false);
+  private sessionExpiredSubject = new BehaviorSubject<boolean>(false);
+  private manualLogoutSubject = new BehaviorSubject<boolean>(false);
 
   sessionExpired$ = this.sessionExpiredSubject.asObservable();
+   manualLogout$ = this.manualLogoutSubject.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -27,8 +29,8 @@ export class AuthService {
         if (response.token) {
           this.isAuthenticated = true;
           this.saveToken(response.token);
-          this.setTokenTimeout(15*60*1000);
-          this.sessionExpiredSubject.next(false);
+          this.setTokenTimeout(1*60*1000);
+          this.resetFlags();
         }
       })
     );
@@ -39,9 +41,19 @@ export class AuthService {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem('token');
     }
+    this.manualLogoutSubject.next(true);
+    this.router.navigate(['/login']);
+  }
+        
+  sessionTimeout(): void {
+    this.isAuthenticated = false;
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('token');
+    }
     this.sessionExpiredSubject.next(true);
     this.router.navigate(['/login']);
   }
+
 
   checkAuthentication(): boolean {
     if (isPlatformBrowser(this.platformId)) {
@@ -66,8 +78,12 @@ export class AuthService {
 
   private setTokenTimeout(milliseconds: number): void {
     setTimeout(() => {
-      this.logout();
-
+      this.sessionTimeout();      
     }, milliseconds);
+  }
+
+  private resetFlags(): void {
+    this.sessionExpiredSubject.next(false);
+    this.manualLogoutSubject.next(false);
   }
 }
