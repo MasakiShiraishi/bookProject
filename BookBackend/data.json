@@ -1,0 +1,66 @@
+{
+          "Books": [
+            {
+              "Id": 1,
+              "Title": "Sample Book",
+              "Author": "Sample Author",
+              "PublicationDate": "2024-01-01T00:00:00"
+            },
+            {
+              "Id": 2,
+              "Title": "test from backend",
+              "Author": "test",
+              "PublicationDate": "2024-12-30T17:35:23.85Z"
+            },
+            {
+              "Id": 3,
+              "Title": "test again",
+              "Author": "string",
+              "PublicationDate": "2024-12-31T07:30:39.486Z"
+            },
+            {
+              "Id": 4,
+              "Title": "test from front",
+              "Author": "test",
+              "PublicationDate": "2024-12-31T00:00:00"
+            }
+          ],
+          "Users": [
+            {
+              "Username": "tester",
+              "Password": "password"
+            }
+          ],
+          "Quotations": [
+            {
+              "Id": 1,
+              "Text": "test from backend",
+              "Author": "testAuthor"
+            },
+            {
+              "Id": 2,
+              "Text": "test again from backend",
+              "Author": "testtest"
+            },
+            {
+              "Id": 3,
+              "Text": "string1",
+              "Author": "testAuthor"
+            },
+            {
+              "Id": 4,
+              "Text": "string2",
+              "Author": "testAuthor"
+            },
+            {
+              "Id": 5,
+              "Text": "string3",
+              "Author": "testAuthor"
+            },
+            {
+              "Id": 6,
+              "Text": "string4",
+              "Author": "testAuthor"
+            }          
+          ]
+        }

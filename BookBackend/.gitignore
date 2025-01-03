@@ -13,7 +13,7 @@ TestResults/
 !.gitkeep
 .env
 
-BookBackend/data.json
+!BookBackend/data.json
 # Rider
 .idea/
 *.sln.iml
