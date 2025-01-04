@@ -19,10 +19,10 @@ export class AddBookComponent {
   addBook(): void {
     this.bookService.createBook(this.newBook).subscribe(() => {
       this.newBook = { title: '', author: '', publicationDate: '' };
-      this.router.navigate(['/']);
+      this.router.navigate(['/book-list']);
     });
   }
   navigateToBookList(): void {
-    this.router.navigate(['/']);
+    this.router.navigate(['/book-list']);
   }
 }
