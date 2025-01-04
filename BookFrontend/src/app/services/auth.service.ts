@@ -4,12 +4,14 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { User } from '../models/user';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiURL = 'http://localhost:5117/api/Auth';
+  private apiURL = environment.apiUrl; 
   private isAuthenticated = false;
   private sessionExpiredSubject = new BehaviorSubject<boolean>(false);
   private manualLogoutSubject = new BehaviorSubject<boolean>(false);
@@ -24,7 +26,7 @@ export class AuthService {
   ) {}
 
   login(user: User): Observable<any> {
-    return this.http.post<any>(`${this.apiURL}/login`, user).pipe(
+    return this.http.post<any>(`${this.apiURL}/Auth/login`, user).pipe(
       tap((response) => {
         if (response.token) {
           this.isAuthenticated = true;
