@@ -21,6 +21,7 @@ const generateToken = (username) => {
 exports.handler = async function(event, context) {
   try {
     console.log("Event body:", event.body);
+    console.log("Data file path:", dataFilePath);
     const { username, password } = JSON.parse(event.body);
 
     const data = JSON.parse(fs.readFileSync(dataFilePath, 'utf-8'));
