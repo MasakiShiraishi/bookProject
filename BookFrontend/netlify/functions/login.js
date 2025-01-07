@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const jwt = require('jsonwebtoken');
 
-const dataFilePath = path.join(__dirname, 'data.json');
+const dataFilePath = './data.json';
 
 const generateToken = (username) => {
   const secretKey = process.env.JWT_KEY;
