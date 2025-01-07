@@ -19,14 +19,17 @@ const generateToken = (username) => {
 };
 
 exports.handler = async function(event, context) {
-  const { username, password } = JSON.parse(event.body);
-
   try {
+    console.log("Event body:", event.body);
+    const { username, password } = JSON.parse(event.body);
+
     const data = JSON.parse(fs.readFileSync(dataFilePath, 'utf-8'));
+    console.log("Data loaded:", data);
     const user = data.Users.find(user => user.username === username && user.password === password);
 
     if (user) {
       const token = generateToken(user.username);
+      console.log("Token generated:", token);
       return {
         statusCode: 200,
         headers: {
@@ -37,6 +40,7 @@ exports.handler = async function(event, context) {
         body: JSON.stringify({ message: 'Login successful', token })
       };
     } else {
+      console.log("Invalid username or password");
       return {
         statusCode: 401,
         headers: {
@@ -48,6 +52,7 @@ exports.handler = async function(event, context) {
       };
     }
   } catch (error) {
+    console.error("Error:", error);
     return {
       statusCode: 500,
       headers: {
@@ -59,3 +64,4 @@ exports.handler = async function(event, context) {
     };
   }
 };
+
