@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "concurrently \"ng serve\" \"dotnet run --project C:/source/CProject/BOOKPROJECT/BookBackend/BookBackend.csproj\"",
-    "build": "ng build",
+    "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:BookFrontend": "node dist/book-frontend/server/server.mjs"
