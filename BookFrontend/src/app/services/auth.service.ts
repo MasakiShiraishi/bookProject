@@ -26,7 +26,7 @@ export class AuthService {
   ) {}
 
   login(user: User): Observable<any> {
-    return this.http.post<any>(`${this.apiURL}/Auth/login`, user).pipe(
+    return this.http.post<any>(`${this.apiURL}/login`, user).pipe(
       tap((response) => {
         if (response.token) {
           this.isAuthenticated = true;
