@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: '/.netlify/functions',
+  apiUrl: 'https://bookproject-lia.netlify.app/.netlify/functions',
 };
