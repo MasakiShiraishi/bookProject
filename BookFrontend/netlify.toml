@@ -1,4 +1,5 @@
 [build]
+  command = "npm install && npm run build"
   publish = "dist/book-frontend/browser"
   functions = "netlify/functions"
 
