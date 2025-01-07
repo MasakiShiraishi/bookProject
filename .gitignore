@@ -1,6 +1,2 @@
 # Local Netlify folder
 .netlify
-
-# Except for the functions directory 
-!.netlify/functions/ 
-!.netlify/functions/**

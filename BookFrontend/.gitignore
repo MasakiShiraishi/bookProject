@@ -40,3 +40,10 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Local Netlify folder
+.netlify
+
+# Except for the functions directory 
+!.netlify/functions/ 
+!.netlify/functions/**
