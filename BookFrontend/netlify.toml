@@ -1,4 +1,5 @@
 [build]
+  publish = "dist/book-frontend/browser"
   functions = "netlify/functions"
 
 [[redirects]]
