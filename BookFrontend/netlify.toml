@@ -1,5 +1,5 @@
 [build]
-  command = ""npm install -g @angular/cli && npm install && npx ng build --configuration production"
+  command = "npm install -g @angular/cli && npm install && npx ng build --configuration production"
   publish = "dist/book-frontend/browser"
   functions = "netlify/functions"
 
