@@ -2,7 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const jwt = require('jsonwebtoken');
 
-const dataFilePath = './data.json';
+console.log("Current directory:", __dirname); 
+const dataFilePath = path.join(__dirname, '..', 'data.json');
 
 const generateToken = (username) => {
   const secretKey = process.env.JWT_KEY;
@@ -21,7 +22,9 @@ const generateToken = (username) => {
 exports.handler = async function(event, context) {
   try {
     console.log("Event body:", event.body);
+    console.log("Current directory:", __dirname);
     console.log("Data file path:", dataFilePath);
+
     const { username, password } = JSON.parse(event.body);
 
     const data = JSON.parse(fs.readFileSync(dataFilePath, 'utf-8'));
