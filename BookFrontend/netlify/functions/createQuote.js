@@ -1,21 +1,25 @@
-const fs = require('fs');
-const path = require('path');
+const { MongoClient } = require('mongodb');
+require('dotenv').config();
 
-const dataFilePath = path.join(__dirname, 'data.json');
+const uri = process.env.MONGODB_URI;
 
 exports.handler = async function(event, context) {
+  const client = new MongoClient(uri);
+
   try {
     const requestBody = JSON.parse(event.body);
-    const data = JSON.parse(fs.readFileSync(dataFilePath, 'utf-8'));
+    await client.connect();
+    const database = client.db('BookDatabase');
+    const quotationsCollection = database.collection('Quotations');
 
     const newQuote = {
       ...requestBody,
-      id: data.Quotations.length ? Math.max(...data.Quotations.map(quote => quote.id)) + 1 : 1
+      id: await quotationsCollection.countDocuments() + 1
     };
 
-    data.Quotations.push(newQuote);
-    fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
-    
+    const result = await quotationsCollection.insertOne(newQuote);
+    console.log(`New quotation inserted with ID: ${result.insertedId}`);
+
     return {
       statusCode: 200,
       headers: {
@@ -26,6 +30,7 @@ exports.handler = async function(event, context) {
       body: JSON.stringify(newQuote)
     };
   } catch (error) {
+    console.error('Error:', error);
     return {
       statusCode: 500,
       headers: {
@@ -35,5 +40,7 @@ exports.handler = async function(event, context) {
       },
       body: JSON.stringify({ error: error.message })
     };
+  } finally {
+    await client.close();
   }
 };

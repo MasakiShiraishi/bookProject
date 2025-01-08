@@ -1,12 +1,17 @@
-const fs = require('fs');
-const path = require('path');
+const { MongoClient } = require('mongodb');
+require('dotenv').config();
 
-const dataFilePath = path.join(__dirname, 'data.json');
+const uri = process.env.MONGODB_URI;
 
 exports.handler = async function(event, context) {
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
   try {
-    const data = JSON.parse(fs.readFileSync(dataFilePath, 'utf-8'));
-    const books = data.Books;
+    await client.connect();
+    const database = client.db('BookDatabase');
+    const booksCollection = database.collection('Books');
+
+    const books = await booksCollection.find().toArray();
     return {
       statusCode: 200,
       headers: {
@@ -26,5 +31,7 @@ exports.handler = async function(event, context) {
       },
       body: JSON.stringify({ error: error.message })
     };
+  } finally {
+    await client.close();
   }
 };

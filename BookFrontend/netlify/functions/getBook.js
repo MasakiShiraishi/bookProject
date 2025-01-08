@@ -1,14 +1,18 @@
-const fs = require('fs');
-const path = require('path');
+const { MongoClient } = require('mongodb');
+require('dotenv').config();
 
-const dataFilePath = path.join(__dirname, 'data.json');
+const uri = process.env.MONGODB_URI;
 
-exports.handler = async function (event, context) {
+exports.handler = async function(event, context) {
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
   try {
-    const id = Number(event.path.split('/').pop());
-    const data = JSON.parse(fs.readFileSync(dataFilePath, 'utf-8'));
+    const id = parseInt(event.path.split('/').pop(), 10);
+    await client.connect();
+    const database = client.db('BookDatabase');
+    const booksCollection = database.collection('Books');
 
-    const book = data.Books.find((book) => book.id === id);
+    const book = await booksCollection.findOne({ id: id });
     if (book) {
       console.log('Found Book:', book);
       return {
@@ -17,7 +21,7 @@ exports.handler = async function (event, context) {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Headers': 'Content-Type',
         },
-        body: JSON.stringify(book),
+        body: JSON.stringify(book)
       };
     } else {
       console.log('Book Not Found for ID:', id);
@@ -27,7 +31,7 @@ exports.handler = async function (event, context) {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Headers': 'Content-Type',
         },
-        body: JSON.stringify({ message: 'Book not found' }),
+        body: JSON.stringify({ message: 'Book not found' })
       };
     }
   } catch (error) {
@@ -38,7 +42,9 @@ exports.handler = async function (event, context) {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',
       },
-      body: JSON.stringify({ error: error.message }),
+      body: JSON.stringify({ error: error.message })
     };
+  } finally {
+    await client.close();
   }
 };

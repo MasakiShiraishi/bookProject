@@ -1,31 +1,36 @@
-const fs = require('fs');
-const path = require('path');
+const { MongoClient } = require('mongodb');
+require('dotenv').config();
 
-const dataFilePath = path.join(__dirname, 'data.json');
+const uri = process.env.MONGODB_URI;
 
-exports.handler = async function (event, context) {
+exports.handler = async function(event, context) {
+  const client = new MongoClient(uri);
+
   try {
-    const id = Number(event.path.split('/').pop());
-    const data = JSON.parse(fs.readFileSync(dataFilePath, 'utf-8'));
-    const quoteIndex = data.Quotations.findIndex((quote) => quote.id === id);
+    const id = parseInt(event.path.split('/').pop(), 10);
+    await client.connect();
+    const database = client.db('BookDatabase');
+    const quotationsCollection = database.collection('Quotations');
 
-    if (quoteIndex !== -1) {
-      data.Quotations.splice(quoteIndex, 1);
-      fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
+    const result = await quotationsCollection.deleteOne({ id: id });
+    if (result.deletedCount === 1) {
       return {
         statusCode: 200,
-        body: JSON.stringify({ message: 'Quotation deleted successfully' }),
+        body: JSON.stringify({ message: 'Quotation deleted successfully' })
       };
     } else {
       return {
         statusCode: 404,
-        body: JSON.stringify({ message: 'Quotation not found' }),
+        body: JSON.stringify({ message: 'Quotation not found' })
       };
     }
   } catch (error) {
+    console.error('Error:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: error.message }),
+      body: JSON.stringify({ error: error.message })
     };
+  } finally {
+    await client.close();
   }
 };

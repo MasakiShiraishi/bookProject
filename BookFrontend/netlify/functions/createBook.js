@@ -1,33 +1,24 @@
-const fs = require('fs');
-const path = require('path');
+const { MongoClient } = require('mongodb');
+require('dotenv').config();
 
-const tmpDataFilePath = '/tmp/data.json'; 
+const uri = process.env.MONGODB_URI;
 
 exports.handler = async function(event, context) {
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
   try {
     const requestBody = JSON.parse(event.body);
-    console.log('Request Body:', requestBody);
-
-    let data;
-    
-    if (fs.existsSync(tmpDataFilePath)) {
-      data = JSON.parse(fs.readFileSync(tmpDataFilePath, 'utf-8'));
-    } else {
-      const originalDataFilePath = path.join(__dirname, 'data.json');
-      data = JSON.parse(fs.readFileSync(originalDataFilePath, 'utf-8'));
-      fs.writeFileSync(tmpDataFilePath, JSON.stringify(data, null, 2));
-    }
-    console.log('Data:', data);
+    await client.connect();
+    const database = client.db('BookDatabase');
+    const booksCollection = database.collection('Books');
 
     const newBook = {
       ...requestBody,
-      id: data.Books.length ? Math.max(...data.Books.map(book => book.id)) + 1 : 1
+      id: await booksCollection.countDocuments() + 1
     };
 
-    console.log('Generated new ID:', newBook.id);
-
-    data.Books.push(newBook);
-    fs.writeFileSync(tmpDataFilePath, JSON.stringify(data, null, 2));
+    const result = await booksCollection.insertOne(newBook);
+    console.log(`New book inserted with ID: ${result.insertedId}`);
 
     return {
       statusCode: 200,
@@ -49,5 +40,7 @@ exports.handler = async function(event, context) {
       },
       body: JSON.stringify({ error: error.message })
     };
+  } finally {
+    await client.close();
   }
 };

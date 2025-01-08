@@ -1,29 +1,25 @@
-const fs = require('fs');
-const path = require('path');
+const { MongoClient } = require('mongodb');
+require('dotenv').config();
 
-const tmpDataFilePath = '/tmp/data.json'; 
+const uri = process.env.MONGODB_URI;
 
 exports.handler = async function(event, context) {
+  const client = new MongoClient(uri);
+
   try {
     const requestBody = JSON.parse(event.body);
     console.log('Request Body:', requestBody);
 
-    let data;
-    if (fs.existsSync(tmpDataFilePath)) {
-      data = JSON.parse(fs.readFileSync(tmpDataFilePath, 'utf-8'));
-    } else {
-      const originalDataFilePath = path.join(__dirname, 'data.json');
-      data = JSON.parse(fs.readFileSync(originalDataFilePath, 'utf-8'));
-      fs.writeFileSync(tmpDataFilePath, JSON.stringify(data, null, 2));
-    }
-    console.log('Data:', data);
+    await client.connect();
+    const database = client.db('BookDatabase');
+    const booksCollection = database.collection('Books');
 
-    const bookIndex = data.Books.findIndex(book => book.id === requestBody.id);
-    console.log('Book Index:', bookIndex);
+    // `_id` フィールドを除外した更新データを作成
+    const updateData = { ...requestBody };
+    delete updateData._id;
 
-    if (bookIndex !== -1) {
-      data.Books[bookIndex] = requestBody;
-      fs.writeFileSync(tmpDataFilePath, JSON.stringify(data, null, 2));
+    const result = await booksCollection.updateOne({ id: requestBody.id }, { $set: updateData });
+    if (result.matchedCount === 1) {
       return {
         statusCode: 200,
         headers: {
@@ -56,5 +52,7 @@ exports.handler = async function(event, context) {
       },
       body: JSON.stringify({ error: error.message })
     };
+  } finally {
+    await client.close();
   }
 };

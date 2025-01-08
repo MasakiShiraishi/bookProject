@@ -1,29 +1,21 @@
-const fs = require('fs');
-const path = require('path');
+const { MongoClient } = require('mongodb');
+require('dotenv').config();
 
-const tmpDataFilePath = '/tmp/data.json'; 
+const uri = process.env.MONGODB_URI;
 
 exports.handler = async function(event, context) {
+  const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
   try {
     const id = parseInt(event.path.split('/').pop(), 10);
     console.log('Book ID to delete:', id);
 
-    let data;
-    if (fs.existsSync(tmpDataFilePath)) {
-      data = JSON.parse(fs.readFileSync(tmpDataFilePath, 'utf-8'));
-    } else {
-      const originalDataFilePath = path.join(__dirname, 'data.json');
-      data = JSON.parse(fs.readFileSync(originalDataFilePath, 'utf-8'));
-      fs.writeFileSync(tmpDataFilePath, JSON.stringify(data, null, 2));
-    }
-    console.log('Data:', data);
+    await client.connect();
+    const database = client.db('BookDatabase');
+    const booksCollection = database.collection('Books');
 
-    const bookIndex = data.Books.findIndex(book => book.id === id);
-    console.log('Book Index:', bookIndex);
-
-    if (bookIndex !== -1) {
-      data.Books.splice(bookIndex, 1);
-      fs.writeFileSync(tmpDataFilePath, JSON.stringify(data, null, 2));
+    const result = await booksCollection.deleteOne({ id: id });
+    if (result.deletedCount === 1) {
       return {
         statusCode: 200,
         body: JSON.stringify({ message: 'Book deleted successfully' })
@@ -40,5 +32,7 @@ exports.handler = async function(event, context) {
       statusCode: 500,
       body: JSON.stringify({ error: error.message })
     };
+  } finally {
+    await client.close();
   }
 };
