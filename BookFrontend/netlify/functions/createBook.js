@@ -6,8 +6,9 @@ const dataFilePath = path.join(__dirname, 'data.json');
 exports.handler = async function(event, context) {
   try {
     const requestBody = JSON.parse(event.body);
+    console.log('Request Body:', requestBody);
     const data = JSON.parse(fs.readFileSync(dataFilePath, 'utf-8'));
-
+    console.log('Data:', data);
     const newBook = {
       ...requestBody,
       id: data.Books.length ? Math.max(...data.Books.map(book => book.id)) + 1 : 1

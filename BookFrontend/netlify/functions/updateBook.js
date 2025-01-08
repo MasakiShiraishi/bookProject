@@ -6,8 +6,13 @@ const dataFilePath = path.join(__dirname, 'data.json');
 exports.handler = async function(event, context) {
   try {
     const requestBody = JSON.parse(event.body);
+    console.log('Request Body:', requestBody);
+
     const data = JSON.parse(fs.readFileSync(dataFilePath, 'utf-8'));
+    console.log('Data:', data);
     const bookIndex = data.Books.findIndex(book => book.id === requestBody.id);
+    console.log('Book Index:', bookIndex);
+    
     if (bookIndex !== -1) {
       data.Books[bookIndex] = requestBody;
       fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
