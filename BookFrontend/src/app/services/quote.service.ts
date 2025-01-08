@@ -13,15 +13,15 @@ export class QuoteService {
   constructor(private http: HttpClient) { }
 
   getQuotes() : Observable<Quote[]> {
-    return this.http.get<Quote[]>(`${this.apiUrl}/Quotations`);
+    return this.http.get<Quote[]>(`${this.apiUrl}/getQuotes`);
   }
 
   createQuote(quote: Omit<Quote, 'id'>): Observable<Quote> {
-    return this.http.post<Quote>(`${this.apiUrl}/Quotations`, quote);
+    return this.http.post<Quote>(`${this.apiUrl}/createQuote`, quote);
   }
 
   deleteQuote(id: number): Observable<Quote> {
-    return this.http.delete<Quote>(`${this.apiUrl}/Quotations/${id}`);
+    return this.http.delete<Quote>(`${this.apiUrl}/deleteQuote/${id}`);
   }
 
 }
