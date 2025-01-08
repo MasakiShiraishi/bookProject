@@ -1,72 +1,72 @@
 {
   "Books": [
     {
-      "Id": 1,
-      "Title": "Sample Book",
-      "Author": "Sample Author",
-      "PublicationDate": "2024-01-01T00:00:00"
+      "id": 1,
+      "title": "test from 111",
+      "author": "test",
+      "publicationDate": "2024-12-31T00:00:00"
     },
     {
-      "Id": 2,
-      "Title": "test from backend",
-      "Author": "test",
-      "PublicationDate": "2024-12-30T17:35:23.85Z"
+      "id": 2,
+      "title": "test from 777",
+      "author": "test",
+      "publicationDate": "2024-12-31T00:00:00"
     },
     {
-      "Id": 3,
-      "Title": "test again",
-      "Author": "string",
-      "PublicationDate": "2024-12-31T07:30:39.486Z"
+      "id": 3,
+      "title": "test again",
+      "author": "string",
+      "publicationDate": "2024-12-31T07:30:39.486Z"
     },
     {
-      "Id": 4,
-      "Title": "test from front",
-      "Author": "test",
-      "PublicationDate": "2024-12-31T00:00:00"
+      "id": 4,
+      "title": "test from front",
+      "author": "test",
+      "publicationDate": "2024-12-31T00:00:00"
     },
     {
-      "Id": 5,
-      "Title": "test post",
-      "Author": "testtest",
-      "PublicationDate": "2025-01-03T00:00:00"
+      "id": 5,
+      "title": "test post",
+      "author": "testtest",
+      "publicationDate": "2025-01-03T00:00:00"
     }
   ],
   "Users": [
     {
-      "Username": "tester",
-      "Password": "password"
+      "username": "tester",
+      "password": "password"
     }
   ],
   "Quotations": [
     {
-      "Id": 1,
-      "Text": "Det finns ingen bättre utbildning än motgångar.",
-      "Author": "Benjamin Disraeli"
+      "id": 1,
+      "text": "Det finns ingen bättre utbildning än motgångar.",
+      "author": "Benjamin Disraeli"
     },
     {
-      "Id": 2,
-      "Text": "Sjömannen ber inte om medvind, han lär sig segla.",
-      "Author": "Gustaf Lindborg"
+      "id": 2,
+      "text": "Sjömannen ber inte om medvind, han lär sig segla.",
+      "author": "Gustaf Lindborg"
     },
     {
-      "Id": 3,
-      "Text": "string1",
-      "Author": "testAuthor"
+      "id": 3,
+      "text": "string1",
+      "author": "testAuthor"
     },
     {
-      "Id": 4,
-      "Text": "string2",
-      "Author": "testAuthor"
+      "id": 4,
+      "text": "string2",
+      "author": "testAuthor"
     },
     {
-      "Id": 5,
-      "Text": "string3",
-      "Author": "testAuthor"
+      "id": 5,
+      "text": "string3",
+      "author": "testAuthor"
     },
     {
-      "Id": 6,
-      "Text": "string4",
-      "Author": "testAuthor"
+      "text": "",
+      "author": "",
+      "id": 6
     }
   ]
 }
