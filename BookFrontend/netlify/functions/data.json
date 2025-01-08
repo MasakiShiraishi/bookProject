@@ -2,33 +2,33 @@
   "Books": [
     {
       "id": 1,
-      "title": "test from 111",
-      "author": "test",
-      "publicationDate": "2024-12-31T00:00:00"
+      "title": "Historien om Sverige",
+      "author": "Bo Eriksson",
+      "publicationDate": "2024-3-27T00:00:00"
     },
     {
       "id": 2,
-      "title": "test from 777",
-      "author": "test",
-      "publicationDate": "2024-12-31T00:00:00"
+      "title": "Trollbergets hemlighet",
+      "author": "Joanna Andre",
+      "publicationDate": "2024-11-22T00:00:00"
     },
     {
       "id": 3,
-      "title": "test again",
-      "author": "string",
-      "publicationDate": "2024-12-31T07:30:39.486Z"
+      "title": "Smak",
+      "author": "Jennie Wallden",
+      "publicationDate": "2024-9-26T07:30:39.486Z"
     },
     {
       "id": 4,
-      "title": "test from front",
-      "author": "test",
-      "publicationDate": "2024-12-31T00:00:00"
+      "title": "Pengarna eller livet",
+      "author": "Tommy Jacobson",
+      "publicationDate": "2024-11-22T00:00:00"
     },
     {
       "id": 5,
-      "title": "test post",
-      "author": "testtest",
-      "publicationDate": "2025-01-03T00:00:00"
+      "title": "Frukt och bär A-Ö",
+      "author": "Paul Svensson",
+      "publicationDate": "2024-02-28T00:00:00"
     }
   ],
   "Users": [
@@ -62,11 +62,6 @@
       "id": 5,
       "text": "string3",
       "author": "testAuthor"
-    },
-    {
-      "text": "",
-      "author": "",
-      "id": 6
     }
   ]
 }
