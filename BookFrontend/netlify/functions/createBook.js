@@ -1,14 +1,24 @@
 const fs = require('fs');
 const path = require('path');
 
-const dataFilePath = path.join(__dirname, 'data.json');
+const tmpDataFilePath = '/tmp/data.json'; 
 
 exports.handler = async function(event, context) {
   try {
     const requestBody = JSON.parse(event.body);
     console.log('Request Body:', requestBody);
-    const data = JSON.parse(fs.readFileSync(dataFilePath, 'utf-8'));
+
+    let data;
+    
+    if (fs.existsSync(tmpDataFilePath)) {
+      data = JSON.parse(fs.readFileSync(tmpDataFilePath, 'utf-8'));
+    } else {
+      const originalDataFilePath = path.join(__dirname, 'data.json');
+      data = JSON.parse(fs.readFileSync(originalDataFilePath, 'utf-8'));
+      fs.writeFileSync(tmpDataFilePath, JSON.stringify(data, null, 2));
+    }
     console.log('Data:', data);
+
     const newBook = {
       ...requestBody,
       id: data.Books.length ? Math.max(...data.Books.map(book => book.id)) + 1 : 1
@@ -17,8 +27,8 @@ exports.handler = async function(event, context) {
     console.log('Generated new ID:', newBook.id);
 
     data.Books.push(newBook);
-    fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
-    
+    fs.writeFileSync(tmpDataFilePath, JSON.stringify(data, null, 2));
+
     return {
       statusCode: 200,
       headers: {
