@@ -1,6 +1,10 @@
 <div class="container mt-5">
   <h2 class="mb-4 text-center">Lägg till bok</h2>
-  <form (ngSubmit)="addBook()" class="form-container mx-auto">
+  <form
+    #bookForm="ngForm"
+    (ngSubmit)="addBook(bookForm)"
+    class="form-container mx-auto"
+  >
     <div class="form-group">
       <label for="title">Titel:</label>
       <input
@@ -35,6 +39,9 @@
     <button type="submit" class="btn btn-primary btn-block btn-block-custom">
       Lägg till ny bok
     </button>
+    <div *ngIf="errorMessage" class="alert alert-danger mt-2 text-center">
+      {{ errorMessage }}
+    </div>
   </form>
   <button
     (click)="navigateToBookList()"

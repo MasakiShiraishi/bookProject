@@ -30,11 +30,11 @@ export class EditBookComponent implements OnInit {
     }
   }
   updateBook(): void {
-    if (this.editingBook) {
+    if (this.editingBook && this.editingBook.id) {
       this.bookService.updateBook(this.editingBook as Book).subscribe(() => {
         this.router.navigate(['/book-list']);
       });
-    }
+    }else { console.error('Book ID is missing'); }
   }
   navigateToBookList(): void {
     this.router.navigate(['/book-list']);

@@ -3,10 +3,10 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-header text-center">
-          <h2>Add Quote</h2>
+          <h2>Lägg till citat</h2>
         </div>
         <div class="card-body">
-          <form (ngSubmit)="addQuote()">
+          <form #quoteForm="ngForm" (ngSubmit)="addQuote(quoteForm)">
             <div class="form-group mb-3">
               <label for="text">Citat:</label>
               <input
@@ -27,9 +27,19 @@
                 required
               />
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Lägg till citat</button>
+            <button type="submit" class="btn btn-primary btn-block">
+              Skicka in
+            </button>
           </form>
-          <button (click)="navigateToQuoteList()" class="btn btn-secondary btn-block mt-3">Tillbaka till mina ciat</button>
+          <button
+            (click)="navigateToQuoteList()"
+            class="btn btn-secondary btn-block mt-3"
+          >
+            Avbryt
+          </button>
+        </div>
+        <div *ngIf="errorMessage" class="alert alert-danger mt-2 text-center">
+          {{ errorMessage }}
         </div>
       </div>
     </div>
