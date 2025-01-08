@@ -3,33 +3,31 @@ const path = require('path');
 
 const dataFilePath = path.join(__dirname, 'data.json');
 
-exports.handler = async function(event, context) {
+exports.handler = async function (event, context) {
   try {
-    const requestBody = JSON.parse(event.body);
+    const id = Number(event.path.split('/').pop());
     const data = JSON.parse(fs.readFileSync(dataFilePath, 'utf-8'));
-    const bookIndex = data.Books.findIndex(book => book.id === requestBody.id);
-    if (bookIndex !== -1) {
-      data.Books[bookIndex] = requestBody;
-      fs.writeFileSync(dataFilePath, JSON.stringify(data, null, 2));
+
+    const book = data.Books.find((book) => book.id === id);
+    if (book) {
+      console.log('Found Book:', book);
       return {
         statusCode: 200,
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Headers': 'Content-Type',
-          'Access-Control-Allow-Methods': 'PUT'
         },
-        body: JSON.stringify({ message: 'Book updated successfully' })
+        body: JSON.stringify(book),
       };
     } else {
-      console.log('Book Not Found for ID:', requestBody.id);
+      console.log('Book Not Found for ID:', id);
       return {
         statusCode: 404,
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Headers': 'Content-Type',
-          'Access-Control-Allow-Methods': 'PUT'
         },
-        body: JSON.stringify({ message: 'Book not found' })
+        body: JSON.stringify({ message: 'Book not found' }),
       };
     }
   } catch (error) {
@@ -39,9 +37,8 @@ exports.handler = async function(event, context) {
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Methods': 'PUT'
       },
-      body: JSON.stringify({ error: error.message })
+      body: JSON.stringify({ error: error.message }),
     };
   }
 };
